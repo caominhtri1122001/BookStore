@@ -1,9 +1,11 @@
-from multiprocessing import context
 from django.shortcuts import render
-
+from .models import *
 # Create your views here.
 def store(request):
-    context = {}
+    books = Book.objects.all()
+    context = {
+        'books':books
+    }
     return render(request, 'store/store.html', context)
 
 def cart(request):
