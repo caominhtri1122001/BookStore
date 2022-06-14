@@ -11,8 +11,8 @@
                 <br>
                 <table class="table">
                     <tr>
-                        <th><h5>Items : <strong>3</strong></h5></th>
-                        <th><h4>Total : <strong>$42</strong></h4></th>
+                        <th><h5>Items : <strong>{{order.get_cart_items}}</strong></h5></th>
+                        <th><h4>Total : <strong>{{order.get_cart_total}}</strong></h4></th>
                         <th>
                             <a href="{% url 'checkout' %}" style="float:right; margin:5px;" 
                                 class="btn btn-success">Checkout</a>
@@ -30,20 +30,24 @@
                     <div class="" style="flex: 1;"><strong>Quantity</strong></div>
                     <div class="" style="flex: 1;"><strong>Total</strong></div>
                 </div>
-
+                {% for item in items %}
+                
                 <div class="cart-row">
-                    <div class="" style="flex: 2;"><img src="{% static 'images/placeholder.png' %}" alt="Book" class="row-image"></div>
-                    <div class="" style="flex: 2;"><p>Book 1</p></div>
-                    <div class="" style="flex: 1;">$20</div>
+                    <div class="" style="flex: 2;"><img src="{{ item.product.imageURL }}" alt="Book" class="row-image"></div>
+                    <div class="" style="flex: 2;"><p>{{item.product.name}}</p></div>
+                    <div class="" style="flex: 1;">{{item.product.price|floatformat:0}} vnd</div>
                     <div class="" style="flex: 1;">
-                        <p class="quantity">2</p>
+                        <p class="quantity">{{item.quantity}}</p>
                         <div class="quantity">
                             <img src="{% static 'images/arrow-up.png' %}" alt="up" class="chg-quantity">
                             <img src="{% static 'images/arrow-down.png' %}" alt="down" class="chg-quantity">
                         </div>
                     </div>
-                    <div style="flex: 1;"><p>$32</p></div>
+                    <div style="flex: 1;"><p>{{item.get_total|floatformat:0}} vnd</p></div>
                 </div>
+
+                {% endfor %}
+              
             </div>
         </div>
     </div>
