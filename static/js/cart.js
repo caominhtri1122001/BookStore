@@ -8,12 +8,36 @@ for (var i = 0; i < updateBtns.length ; i++) {
 
         console.log('User : ',user);
         if (user === 'AnonymousUser') {
-            console.log('Not logged in');
+            addCookieItem(bookID, action);
         }
         else {
             updateUserOrder(bookID,action);
         }
     })
+}
+
+function addCookieItem(bookID, action) {
+    console.log('Not logged in...');
+    console.log('Action : ', action);
+    if( action == 'add') {
+        if (cart[bookID] === undefined) {
+            cart[bookID] = {'quantity':1}
+        }else {
+            cart[bookID]['quantity'] += 1
+        }
+    }
+
+    if ( action == 'remove') {
+        cart[bookID]['quantity'] -= 1;
+
+        if (cart[bookID]['quantity'] <= 0) {
+            console.log('Remove Item');
+            delete cart[bookID]
+        }
+    }
+    console.log('Cart:' , cart);
+    document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
 }
 
 function updateUserOrder(bookID, action) {
