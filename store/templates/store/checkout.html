@@ -74,12 +74,11 @@
         var total = '{{order.get_cart_total|floatformat:2}}'
         
         if (shipping == 'False') {
-            document.getElementById('shipping-info').innerHTML = ''
+            document.getElementsByClassName('shipping-info').innerHTML = ''
         }
-        {% comment %} 
         if (user != 'AnonymousUser') {
-            document.getElementById('user-info').innerHTML = ''
-        } {% endcomment %}
+            document.getElementsByClassName('user-info').innerHTML = ''
+        } 
 
         if (shipping == 'False' && user != 'AnonymousUser') {
             document.getElementById('form-wrapper').classList.add('hidden')
@@ -141,6 +140,9 @@
             .then((data) => {
                 console.log('Success: ', data)
                 alert('Transaction completed!')
+
+                cart = {}
+                document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
                 window.location.href = "{% url 'store' %}"
             })
         }
