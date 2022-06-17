@@ -1,6 +1,6 @@
 {% extends 'store/main.html' %}
 {% load static %}
-{% block content %}
+{% comment %} {% block content %}
     <div class="row">
         {% for book in books %}
         <div class="col-lg-4">
@@ -16,6 +16,73 @@
         </div>
         {% endfor %}
     </div>
+{% endblock content %} {% endcomment %}
+
+{% block content %}
+    <!-- featured section starts  -->
+
+    <section class="featured" id="featured">
+
+        <h1 class="heading"> <span>featured books</span> </h1>
+
+        <div class="swiper featured-slider">
+
+            <div class="swiper-wrapper">
+                {% for book in books %}
+                <div class="swiper-slide box">
+                    <div class="image">
+                        <img src="{{ book.imageURL }}" alt="{{book.name}}">
+                    </div>
+                    <div class="content">
+                        <h3>{{book.name}}</h3>
+                        <div class="price">{{book.price|floatformat:0}} vnd</div>
+                        <button class="btn add-btn update-cart" data-book={{book.id}} data-action="add">add to cart</button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+
+        </div>
+
+    </section>
+
+    <!-- featured section ends -->
+
+    <!-- arrivals section starts  -->
+
+    <section class="arrivals" id="arrivals">
+
+        <h1 class="heading"> <span>new arrivals</span> </h1>
+
+        <div class="swiper arrivals-slider">
+
+            <div class="swiper-wrapper">
+                {% for book in books %}
+                <a href="#" class="swiper-slide box">
+                    <div class="image">
+                        <img src="{{ book.imageURL }}" alt="{{book.name}}">
+                    </div>
+                    <div class="content">
+                        <h3>{{book.name}}</h3>
+                        <div class="price">{{book.price|floatformat:0}} vnd</div>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+
 {% endblock content %}
 
 
