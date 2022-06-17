@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import JsonResponse
+from matplotlib.style import context
 from .models import *
 import json
 import datetime
@@ -37,6 +38,13 @@ def checkout(request):
         
     context = {'items':items, 'order':order, 'cartItems':cartItems}
     return render(request, 'store/checkout.html', context)
+
+def detail(request,id):
+    book = get_object_or_404(Book, id=id)
+    context = {
+        'book':book
+    }
+    return render(request, 'store/detail.html', context)
 
 def updateItem(request):
     data = json.loads(request.body)

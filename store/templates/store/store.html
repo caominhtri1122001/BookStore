@@ -37,6 +37,7 @@
                         <h3>{{book.name}}</h3>
                         <div class="price">{{book.price|floatformat:0}} vnd</div>
                         <button class="btn add-btn update-cart" data-book={{book.id}} data-action="add">add to cart</button>
+                        <a href="{% url 'detail' book.id %}" class="btn btn-success">View</a>
                     </div>
                 </div>
                 {% endfor %}
