@@ -68,17 +68,17 @@
         var shipping = '{{order.shipping}}'
         var total = '{{order.get_cart_total|floatformat:2}}'
         
-        {% comment %} if (shipping === 'False') {
-            document.getElementById('shipping-info').innerHTML = ''
-        }
-        if (user !== 'AnonymousUser') {
-            document.getElementById('user-info').innerHTML = ''
-        } 
+        {#if (shipping === 'False') {#}
+        {#    document.getElementById('shipping-info').innerHTML = ''#}
+        {#}#}
+        {#if (user !== 'AnonymousUser') {#}
+        {#    document.getElementById('user-info').innerHTML = ''#}
+        {#}#}
 
-        if (shipping === 'False' && user !== 'AnonymousUser') {
-            document.getElementById('form-wrapper').classList.add('hidden')
-            document.getElementById('payment-info').classList.remove('hidden')
-        } {% endcomment %}
+        {#if (shipping === 'False' && user !== 'AnonymousUser') {#}
+        {#    document.getElementById('form-wrapper').classList.add('hidden')#}
+        {#    document.getElementById('payment-info').classList.remove('hidden')#}
+        {#}#}
 
         var form = document.getElementById('form')
 
@@ -110,12 +110,11 @@
                 'zipcode':null,
             }
 
-            if (shipping === 'False') {
-                shippingInfo.address = form.address.value
-                shippingInfo.city = form.city.value
-                shippingInfo.state = form.state.value
-                shippingInfo.zipcode = form.zipcode.value
-            }
+
+            shippingInfo.address = form.address.value
+            shippingInfo.city = form.city.value
+            shippingInfo.state = form.state.value
+            shippingInfo.zipcode = form.zipcode.value
 
             if (user === 'AnonymousUser') {
                 userFormData.name = form.name.value

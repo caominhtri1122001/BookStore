@@ -421,7 +421,7 @@ section{
 	height: 25px;
 	border-radius: 50%;
 	font-size: 14px; */
-    color: var(--clr-white);
+    color: white;
     margin-bottom: 0;
     font-size: 1.25rem;
 }

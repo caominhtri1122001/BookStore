@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'store/manage.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Add Book</title>
+</head>
+<body>
+    {% block content %}
+        <form class="form" method="POST">{%  csrf_token %}
+            {{  form.as_p }}
+            <input type="submit" class="btn btn-primary" value="Save">
+        </form>
+    {% endblock %}
+</body>
+</html>

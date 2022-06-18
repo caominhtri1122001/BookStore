@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'store/manage.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>List of Books</title>
+</head>
+<body>
+    {% block content %}
+        <table class="table">
+            <thead>
+            <th style="text-align: center;">Code</th>
+            <th>Name</th>
+            <th style="text-align: left;">Image</th>
+            <th>Price (VND)</th>
+            <th>
+                <a href="{% url 'create' %}" style="width: 100px" class="btn btn-primary">Add</a>
+            </th>
+            </thead>
+            <tbody>
+            {% for book in books %}
+                <tr>
+                <td style="text-align: center;">{{ book.id }}</td>
+                <td>
+                    <a>{{ book.name }}</a>
+                </td>
+                <td>
+                    <img class="img-thumbnail" style="width: 200px;height: auto; text-align: center;" src="{{ book.imageURL }}" alt="{{ book.name }}">
+                </td>
+                <td style="color: red">
+                    {{ book.price|floatformat:0 }}
+                </td>
+                <td><a href="{% url 'update' book.id %}" style="width: 100px" class="btn btn-success">Update</a></td>
+                <td><a href="{% url 'delete' book.id %}" style="width: 100px" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endblock %}
+</body>
+</html>
