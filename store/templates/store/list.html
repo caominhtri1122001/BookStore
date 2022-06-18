@@ -22,7 +22,7 @@
                 <tr>
                 <td style="text-align: center;">{{ book.id }}</td>
                 <td>
-                    <a>{{ book.name }}</a>
+                    <a href="{% url 'detail' book.id %}">{{ book.name }}</a>
                 </td>
                 <td>
                     <img class="img-thumbnail" style="width: 200px;height: auto; text-align: center;" src="{{ book.imageURL }}" alt="{{ book.name }}">
