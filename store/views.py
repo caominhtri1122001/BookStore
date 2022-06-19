@@ -96,21 +96,37 @@ def create_view(request):
         return render(request, 'store/create.html')
 
 
+# def update_view(request, id):
+#     book = get_object_or_404(Book, id=id)
+#     # book = get_object_or_404(Book, id=id)
+#     # form = BookForm(request.POST or None, instance=book)
+#     if request.method == 'POST':
+#         book.delete()
+#         Book.objects.create(name=request.POST['name'],
+#                             price=request.POST['price'],
+#                             image=request.FILES['image'], )
+#         return redirect('/list')
+#     context = {
+#         'book': book
+#     }
+#     return render(request, 'store/update.html', context)
+
 def update_view(request, id):
     book = get_object_or_404(Book, id=id)
-    # book = get_object_or_404(Book, id=id)
-    # form = BookForm(request.POST or None, instance=book)
-    if request.method == 'POST':
-        book.delete()
-        Book.objects.create(name=request.POST['name'],
-                            price=request.POST['price'],
-                            image=request.FILES['image'], )
-        return redirect('/list')
     context = {
         'book': book
     }
-    return render(request, 'store/update.html', context)
-
+    if request.method == 'POST':
+        # Book.objects.update(name=request.POST['name'],
+        #     price=request.POST['price'],
+        #     image=request.FILES['image'], )
+        book.name = request.POST['name']
+        book.price = request.POST['price']
+        book.image = request.FILES['image']
+        book.save()
+        return redirect('/list')
+    else:
+        return render(request, 'store/update.html', context)
 
 def delete_view(request, id):
     book = get_object_or_404(Book, id=id)
