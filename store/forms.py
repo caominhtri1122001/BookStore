@@ -2,24 +2,24 @@ from django import forms
 from .models import Book
 
 class BookForm(forms.ModelForm):
-    Name = forms.CharField(label='Name',
+    name = forms.CharField(label='Name',
                            required=False,
                            widget=forms.TextInput(attrs={
                                 'class': 'form-control',
                                 'placeholder': 'Enter the name'
                            }))
 
-    Price = forms.CharField(label='Price',
+    price = forms.CharField(label='Price',
                             widget=forms.TextInput(attrs={
                                 'class': 'form-control'
                             }))
-    Image = forms.ImageField(label='Image',)
+    image = forms.ImageField(label='Image',required=False)
 
     class Meta:
         model = Book
         fields = [
-            # 'name',
-            # 'price',
-            # # 'digital',
-            # 'image',
+            'name',
+            'price',
+            # 'digital',
+            'image',
         ]

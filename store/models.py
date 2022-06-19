@@ -1,3 +1,4 @@
+from email.policy import default
 from turtle import back
 from django.db import models
 from django.contrib.auth.models import User
@@ -13,9 +14,9 @@ class Customer(models.Model):
 
 class Book(models.Model):
     name = models.CharField(max_length=200, null=True)
-    price = models.FloatField()
+    price = models.FloatField(null=True)
     digital = models.BooleanField(default=False, null=True, blank=False)
-    image = models.ImageField(null=True, blank=True,)
+    image = models.ImageField(upload_to='',null=True, default=None)
     
     def __str__(self):
         return self.name

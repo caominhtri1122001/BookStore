@@ -1,13 +1,13 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import JsonResponse
+from requests import Response
 from .forms import BookForm
 from .models import *
 import json
 import datetime
-from .utils import cartData, cookieCart, guestOrder
+from .utils import cartData, guestOrder
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import AuthenticationForm
-
 
 # Create your views here.
 def store(request):
@@ -68,17 +68,30 @@ def list(request):
     }
     return render(request, 'store/list.html', context)
 
-def create_view(request):
-    form = BookForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        form.BookForm()
-        return redirect('/list')
-    context = {
-        'form': form
-    }
-    return render(request, 'store/create.html', context)
+# def create_view(request):
+#     form = BookForm(request.POST or None, request.FILES or None)
+#     if (form.is_valid()):
+#         form.save()
+#         form = BookForm()
+#         return redirect('/list')
+#     context = {
+#         'form': form
+#     }
+#     return render(request, 'store/create.html', context)
 
+
+def create_view(request):
+    if request.method == 'POST':
+        # name = request.POST['name']
+        # price = request.POST['price']
+        # image = request.FILES['image']
+        # print('name',name,price,image)
+        Book.objects.create(name=request.POST['name'],
+                        price=request.POST['price'],
+                        image=request.FILES['image'],)
+        return redirect('list')
+    else: 
+        return render(request, 'store/create.html')
 
 def update_view(request, id):
     book = get_object_or_404(Book, id=id)

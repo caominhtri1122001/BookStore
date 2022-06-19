@@ -7,9 +7,16 @@
 </head>
 <body>
     {% block content %}
-        <form class="form" method="POST">{%  csrf_token %}
+        {% comment %} <form class="form" method="POST">{%  csrf_token %}
             {{  form.as_p }}
             <input type="submit" class="btn btn-primary" value="Save">
+        </form>  {% endcomment %}
+        <form action="/create/" class="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="name" placeholder="Book Name...">
+            <input type="text" class="form-control" name="price" placeholder="Price...">
+            <input type="file" name="image">
+            <input type="submit" class="btn btn-primary" value="Submit">
         </form>
     {% endblock %}
 </body>
