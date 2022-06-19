@@ -63,9 +63,23 @@ def login(request):
 
 
 def list(request):
-    books = Book.objects.all()
+    keyword = request.GET.get('keyword')
+    select = request.GET.get('drop-down')
+    if keyword:
+        if select == '0':
+            books = Book.objects.filter(id__icontains=keyword)
+        if select == '1':
+            books = Book.objects.filter(name__icontains=keyword)
+        if select == '2':
+            books = Book.objects.filter(price__icontains=keyword)
+        if select == '3':
+            books = Book.objects.filter(category__name__icontains=keyword)
+    else:
+        books = Book.objects.all()
     context = {
-        'books': books
+        "keyword": keyword,
+        'books': books,
+        '1': select
     }
     return render(request, 'store/list.html', context)
 
@@ -83,6 +97,11 @@ def list(request):
 
 
 def create_view(request):
+    select = request.POST.get('category')
+    category = Category.objects.all()
+    context = {
+        'category': category
+    }
     if request.method == 'POST':
         # name = request.POST['name']
         # price = request.POST['price']
@@ -90,10 +109,11 @@ def create_view(request):
         # print('name',name,price,image)
         Book.objects.create(name=request.POST['name'],
                             price=request.POST['price'],
-                            image=request.FILES['image'], )
+                            image=request.FILES['image'],
+                            category=Category(select))
         return redirect('list')
     else:
-        return render(request, 'store/create.html')
+        return render(request, 'store/create.html', context)
 
 
 # def update_view(request, id):
@@ -112,9 +132,13 @@ def create_view(request):
 #     return render(request, 'store/update.html', context)
 
 def update_view(request, id):
+    select = request.POST.get('drop-down')
+    print(Category(select))
     book = get_object_or_404(Book, id=id)
+    category = Category.objects.all()
     context = {
-        'book': book
+        'book': book,
+        'category': category,
     }
     if request.method == 'POST':
         # Book.objects.update(name=request.POST['name'],
@@ -122,6 +146,9 @@ def update_view(request, id):
         #     image=request.FILES['image'], )
         book.name = request.POST['name']
         book.price = request.POST['price']
+        book.category = Category(select)
+        # book.category.name = request.POST['']
+        # print(request.POST['category'])
         book.image = request.FILES['image']
         book.save()
         return redirect('/list')

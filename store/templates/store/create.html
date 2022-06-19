@@ -16,6 +16,11 @@
             <input type="text" class="form-control" name="name" placeholder="Book Name...">
             <input type="text" class="form-control" name="price" placeholder="Price...">
             <input type="file" name="image">
+            <select class="form-control" name="category">
+                {% for categori in category %}
+                    <option value="{{ categori.id }}">{{ categori.name }}</option>
+                {% endfor %}
+            </select>
             <input type="submit" class="btn btn-primary" value="Submit">
         </form>
     {% endblock %}
