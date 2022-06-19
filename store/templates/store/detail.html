@@ -3,13 +3,13 @@
 
 {% block content %}
     <div class="container">
-        <h3>Book : {{book.name}}
+        <h2>Book : {{book.name}}</h2>
         <div class="row">
-            <img src="{{book.imageURL}}" alt="{{book.name}}">
+            <img src="{{book.imageURL}}" alt="{{book.name}}" width="377px" height="500px">
         </div>
         <div>
-            <h4>{{book.name}}</h4>
-            <h5>Price : {{book.price}}</h5>
+            <h2>{{book.name}}</h2>
+            <h2>Price : {{book.price}}</h2>
         </div>
     </div>
 {% endblock content %}

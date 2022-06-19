@@ -9,6 +9,7 @@ from .utils import cartData, guestOrder
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import AuthenticationForm
 
+
 # Create your views here.
 def store(request):
     data = cartData(request)
@@ -53,7 +54,7 @@ def detail(request, id):
 
 def login(request):
     if request.method == "POST":
-        form = AuthenticationForm(data= request.POST)
+        form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             return redirect('list')
     else:
@@ -67,6 +68,7 @@ def list(request):
         'books': books
     }
     return render(request, 'store/list.html', context)
+
 
 # def create_view(request):
 #     form = BookForm(request.POST or None, request.FILES or None)
@@ -87,22 +89,28 @@ def create_view(request):
         # image = request.FILES['image']
         # print('name',name,price,image)
         Book.objects.create(name=request.POST['name'],
-                        price=request.POST['price'],
-                        image=request.FILES['image'],)
+                            price=request.POST['price'],
+                            image=request.FILES['image'], )
         return redirect('list')
-    else: 
+    else:
         return render(request, 'store/create.html')
+
 
 def update_view(request, id):
     book = get_object_or_404(Book, id=id)
-    form = BookForm(request.POST or None, instance=book)
+    # book = get_object_or_404(Book, id=id)
+    # form = BookForm(request.POST or None, instance=book)
     if request.method == 'POST':
-        form.save()
+        book.delete()
+        Book.objects.create(name=request.POST['name'],
+                            price=request.POST['price'],
+                            image=request.FILES['image'], )
         return redirect('/list')
     context = {
-        'form': form
+        'book': book
     }
     return render(request, 'store/update.html', context)
+
 
 def delete_view(request, id):
     book = get_object_or_404(Book, id=id)
@@ -113,6 +121,7 @@ def delete_view(request, id):
         'book': book
     }
     return render(request, 'store/delete.html', context)
+
 
 def updateItem(request):
     data = json.loads(request.body)
